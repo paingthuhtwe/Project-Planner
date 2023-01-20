@@ -7,7 +7,7 @@
         </h5>
       </div>
       <div class="text-gray">
-        <i class="fas fa-trash"></i>
+        <i class="fas fa-trash" @click="deleteProject"></i>
         <i class="fas fa-edit"></i>
         <i class="fas fa-check"></i>
       </div>
@@ -24,7 +24,16 @@ export default {
   data() {
     return {
       showDetail: false,
+      api: "http://localhost:3000/projects/",
     };
+  },
+  methods: {
+    deleteProject() {
+      let deleteRoute = this.api + this.project.id;
+      fetch(deleteRoute, { method: "DELETE" }).then(() => {
+        this.$emit("delete", this.project.id);
+      });
+    },
   },
 };
 </script>
